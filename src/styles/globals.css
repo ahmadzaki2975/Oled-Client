@@ -29,3 +29,28 @@ body {
 .font-mono {
   font-family: monospace;
 }
+
+.oled {
+  transform-style: preserve-3d;
+  transition: ease-in-out;
+  /* transform: rotateY(40deg) rotateX(20deg); */
+  perspective: 10000px;
+}
+
+.oled::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  transform: translateZ(-20px);
+  border-radius: 10px;
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.438);
+}
+
+/* .oled:hover {
+  transform: rotateY(10deg) rotateX(10deg);
+} */
+
