@@ -35,10 +35,7 @@ function useCursorOffset() {
 export default function Home() {
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
-  const [alarmTime, setAlarmTime] = useState({
-    hour: 0,
-    minute: 0,
-  });
+  const [alarmTime, setAlarmTime] = useState("");
   const cursorOffset = useCursorOffset();
 
   useEffect(() => {
@@ -73,17 +70,29 @@ export default function Home() {
           }}
         >
           <div className="screen outline outline-white outline-offset-[5px] bg-black w-[96%] aspect-[320/175] flex flex-col justify-center items-center">
-            <h1 className="text-[40px] md:text-[60px] text-center drop-shadow-[0_0_5px_rgba(255,255,255,.6)]">
-              {time}
-            </h1>
-            <h1 className="text-[20px] md:text-[30px] text-center drop-shadow-[0_0_5px_rgba(255,255,255,.6)] mt-[-14px]">
-              {date}
-            </h1>
-            <h1 className="text-[20px] md:text-[30px] text-center drop-shadow-[0_0_5px_rgba(255,255,255,.6)] mt-[20px]">
-              alarm on {alarmTime.hour < 10 ? "0" : ""}
-              {alarmTime.hour}:{alarmTime.minute < 10 ? "0" : ""}
-              {alarmTime.minute}
-            </h1>
+            {time != "" && date != "" ? (
+              <>
+                <h1 className="text-[40px] md:text-[60px] text-center drop-shadow-[0_0_5px_rgba(255,255,255,.6)]">
+                  {time}
+                </h1>
+                <h1 className="text-[20px] md:text-[30px] text-center drop-shadow-[0_0_5px_rgba(255,255,255,.6)] mt-[-14px]">
+                  {date}
+                </h1>
+              </>
+            ) : (
+              <h1 className="text-[20px] md:text-[30px] text-center drop-shadow-[0_0_5px_rgba(255,255,255,.6)] mt-[-14px]">
+                Waiting for data...
+              </h1>
+            )}
+            {alarmTime != "" ? (
+              <h1 className="text-[20px] md:text-[30px] text-center drop-shadow-[0_0_5px_rgba(255,255,255,.6)] mt-[20px]">
+                alarm on {alarmTime.hour < 10 ? "0" : ""}
+                {alarmTime.hour}:{alarmTime.minute < 10 ? "0" : ""}
+                {alarmTime.minute}
+              </h1>
+            ) : (
+              ""
+            )}
           </div>
           {/* //? Decorations */}
           <div className="bg-white w-[100px] h-[60px] absolute top-0 left-0 m-5 rounded-full border-slate-400 border-[10px]"></div>
