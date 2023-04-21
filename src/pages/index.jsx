@@ -32,11 +32,35 @@ function useCursorOffset() {
   return offset;
 }
 
+function AudioPlayer({isPlaying}) {
+  const [audio] = useState(new Audio("/SireneMeme.mp3"))
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (isPlaying) {
+      if (!isLoaded) {
+        audio.load();
+        setIsLoaded(true);
+      }
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }, [isPlaying]);
+  
+  return(
+    <></>
+  )
+}
+
 export default function Home() {
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
   const [alarmTime, setAlarmTime] = useState("");
   const cursorOffset = useCursorOffset();
+
+  const currentHour = time.split(":")[0];
+  const currentMinute = time.split(":")[1];
 
   useEffect(() => {
     socket.on("data", (data) => {
@@ -116,6 +140,8 @@ export default function Home() {
           </div>
           <div className="bg-green-700/[.8] w-[80px] h-[80px] absolute top-0 right-0 mt-[110px] translate-x-[62px]"></div>
           {/* <div className="layer h-full bg-[red] absolute w-full"></div> */}
+          {/* //? AudioPlayer */}
+          <AudioPlayer isPlaying={alarmTime.hour == currentHour && alarmTime.minute == currentMinute } />
         </div>
       </main>
     </>
