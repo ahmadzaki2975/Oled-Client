@@ -33,10 +33,10 @@ function useCursorOffset() {
 }
 
 function AudioPlayer({isPlaying}) {
-  const [audio] = useState(new Audio("/SireneMeme.mp3"))
   const [isLoaded, setIsLoaded] = useState(false);
-
+  
   useEffect(() => {
+    const audio = new Audio("/SireneMeme.mp3")
     if (isPlaying) {
       if (!isLoaded) {
         audio.load();
