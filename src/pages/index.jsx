@@ -32,11 +32,11 @@ function useCursorOffset() {
   return offset;
 }
 
-function AudioPlayer({isPlaying}) {
+function AudioPlayer({ isPlaying }) {
   const [isLoaded, setIsLoaded] = useState(false);
-  
+
   useEffect(() => {
-    const audio = new Audio("/SireneMeme.mp3")
+    const audio = new Audio("/SireneMeme.mp3");
     if (isPlaying) {
       if (!isLoaded) {
         audio.load();
@@ -47,10 +47,8 @@ function AudioPlayer({isPlaying}) {
       audio.pause();
     }
   }, [isPlaying]);
-  
-  return(
-    <></>
-  )
+
+  return <></>;
 }
 
 export default function Home() {
@@ -69,10 +67,8 @@ export default function Home() {
         console.log(data.time);
         setTime(data.time);
         setDate(data.date);
+        setAlarmTime(data.alarm);
       }
-    });
-    socket.on("alarm", (data) => {
-      setAlarmTime(data.alarm);
     });
   }, []);
 
@@ -110,9 +106,8 @@ export default function Home() {
             )}
             {alarmTime != "" ? (
               <h1 className="text-[20px] md:text-[30px] text-center drop-shadow-[0_0_5px_rgba(255,255,255,.6)] mt-[20px]">
-                alarm on {alarmTime.hour < 10 ? "0" : ""}
-                {alarmTime.hour}:{alarmTime.minute < 10 ? "0" : ""}
-                {alarmTime.minute}
+                alarm on{" "}
+                {alarmTime.hour}:{alarmTime.minute}
               </h1>
             ) : (
               ""
@@ -141,7 +136,11 @@ export default function Home() {
           <div className="bg-green-700/[.8] w-[80px] h-[80px] absolute top-0 right-0 mt-[110px] translate-x-[62px]"></div>
           {/* <div className="layer h-full bg-[red] absolute w-full"></div> */}
           {/* //? AudioPlayer */}
-          <AudioPlayer isPlaying={alarmTime.hour == currentHour && alarmTime.minute == currentMinute } />
+          <AudioPlayer
+            isPlaying={
+              alarmTime.hour == currentHour && alarmTime.minute == currentMinute
+            }
+          />
         </div>
       </main>
     </>
